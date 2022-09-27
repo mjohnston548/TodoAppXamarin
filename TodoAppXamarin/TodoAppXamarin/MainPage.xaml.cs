@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using TodoAppXamarin.Models;
 using TodoAppXamarin.ViewModels;
 using Xamarin.Forms;
@@ -17,12 +12,9 @@ namespace TodoAppXamarin
         {
             InitializeComponent();
             this.ViewModel = new TodoListViewModel();
+            
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            TodoListViewModel model = ViewModel;
-            model.TodoListItems.Add(new TodoItem("Play warcraft"));
-        }
+
     }
 }

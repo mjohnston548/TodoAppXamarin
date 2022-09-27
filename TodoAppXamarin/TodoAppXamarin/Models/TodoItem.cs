@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoAppXamarin.Models
+﻿namespace TodoAppXamarin.Models
 {
-    internal class TodoItem
+    public class TodoItem
     {
-        
+
 
         public string TodoText { get; set; }
         public bool Complete { get; set; }
 
-        public TodoItem(string todoText)
-        {
-            TodoText = todoText;
-        }
 
-        public TodoItem(string todoText, bool complete=false) 
+
+        public TodoItem(string todoText, bool complete)
         {
-            TodoText= todoText;
-            Complete = complete;
+            this.TodoText = todoText;
+            this.Complete = complete;
         }
     }
 }

@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <local:TodoListViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout>
+    <StackLayout Orientation="Vertical">
         <Entry Placeholder="Enter a todo" x:Name="inputTodoEntryField"
                Text="{Binding NewTodoInputValue}"
                ReturnCommand="{Binding AddTodoCommand}"/>
@@ -19,7 +19,11 @@
                         <FlexLayout JustifyContent="SpaceBetween" Padding="20,0">
                             <ContentView>
                                 <FlexLayout AlignItems="Center" >
-                                    <input:CheckBox IsChecked="{Binding Complete}"/>
+                                    <input:CheckBox IsChecked="{Binding Complete}" 
+                                                    CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
+                                                    CommandParameter="{Binding .}"
+                                                    />
+                                    
                                     <Label Text="{Binding TodoText}" Padding="10,0,0,0" FontSize="Large"/>
                                 </FlexLayout>
                             </ContentView>
@@ -36,7 +40,22 @@
             </ListView.ItemTemplate>
             
         </ListView>
-        <Button Text="Remove First List Item" Clicked="Button_Clicked"/>
+        
+        <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
+        <ListView ItemsSource="{Binding CompletedTodoItems}" x:Name="completedTodoList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <FlexLayout>
+                        
+                            <Label x:Name="completedTodoItem" Text="{Binding TodoText}"/>
+                            <Label Text="hello there"/>
+
+                        </FlexLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 
 </ContentPage>
