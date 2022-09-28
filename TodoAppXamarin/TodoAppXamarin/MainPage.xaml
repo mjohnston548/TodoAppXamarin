@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TodoAppXamarin.ViewModels"
-             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit" 
+             
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="TodoAppXamarin.MainPage">
 
     <ContentPage.BindingContext>
@@ -12,7 +14,7 @@
         <Entry Placeholder="Enter a todo" x:Name="inputTodoEntryField"
                Text="{Binding NewTodoInputValue}"
                ReturnCommand="{Binding AddTodoCommand}"/>
-        <ListView ItemsSource="{Binding TodoListItems}" x:Name="todoList">
+        <ListView ItemsSource="{Binding TodoListItems}" x:Name="todoList" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -41,21 +43,30 @@
             
         </ListView>
         
-        <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
-        <ListView ItemsSource="{Binding CompletedTodoItems}" x:Name="completedTodoList">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <FlexLayout>
-                        
-                            <Label x:Name="completedTodoItem" Text="{Binding TodoText}"/>
-                            <Label Text="hello there"/>
+        
+        <xct:Expander >
+            <xct:Expander.Header>
+                <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
+            </xct:Expander.Header>
+            <ListView ItemsSource="{Binding CompletedTodoItems}" x:Name="completedTodoList" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <FlexLayout >
 
-                        </FlexLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <Label x:Name="completedTodoItem" Text="{Binding TodoText}" FontSize="Large"
+                                   />
+
+
+                            </FlexLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </xct:Expander>
+
+        
     </StackLayout>
 
 </ContentPage>

@@ -11,8 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.5" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms.InputKit" Version="4.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
 </Project>
