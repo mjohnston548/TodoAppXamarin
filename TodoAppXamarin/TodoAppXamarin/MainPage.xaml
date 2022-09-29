@@ -10,63 +10,79 @@
     <ContentPage.BindingContext>
         <local:TodoListViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout Orientation="Vertical">
-        <Entry Placeholder="Enter a todo" x:Name="inputTodoEntryField"
-               Text="{Binding NewTodoInputValue}"
-               ReturnCommand="{Binding AddTodoCommand}"/>
-        <ListView ItemsSource="{Binding TodoListItems}" x:Name="todoList" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <FlexLayout JustifyContent="SpaceBetween" Padding="20,0">
-                            <ContentView>
-                                <FlexLayout AlignItems="Center" >
-                                    <input:CheckBox IsChecked="{Binding Complete}" 
-                                                    CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
-                                                    CommandParameter="{Binding .}"
-                                                    />
-                                    
-                                    <Label Text="{Binding TodoText}" Padding="10,0,0,0" FontSize="Large"/>
-                                </FlexLayout>
-                            </ContentView>
-                            
-                            <ImageButton Source="trash_icon.png" 
-                                         Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}"
-                                         CommandParameter="{Binding .}"
-                                         Scale="1.2" BackgroundColor="White"
-                                         />
-                            
-                        </FlexLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            
-        </ListView>
-        
-        
-        <xct:Expander >
-            <xct:Expander.Header>
-                <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
-            </xct:Expander.Header>
-            <ListView ItemsSource="{Binding CompletedTodoItems}" x:Name="completedTodoList" >
+    <RelativeLayout>
+        <StackLayout Orientation="Vertical">
+            <!--<Entry Placeholder="Enter a todo" x:Name="inputTodoEntryField"
+                   Text="{Binding NewTodoInputValue}"
+                   ReturnCommand="{Binding AddTodoCommand}"/>-->
+            <ListView ItemsSource="{Binding TodoListItems}" x:Name="todoList" HeightRequest="400">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <FlexLayout >
-
-                                <Label x:Name="completedTodoItem" Text="{Binding TodoText}" FontSize="Large"
-                                   />
-
-
+                            <FlexLayout JustifyContent="SpaceBetween" Padding="20,0">
+                                <ContentView>
+                                    <FlexLayout AlignItems="Center" >
+                                        <input:CheckBox IsChecked="{Binding Complete}" 
+                                                        CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
+                                                        CommandParameter="{Binding .}"
+                                                        />
+                                    
+                                        <Label Text="{Binding TodoText}" Padding="10,0,0,0" FontSize="Large"/>
+                                    </FlexLayout>
+                                </ContentView>
+                            
+                                <ImageButton Source="trash_icon.png" 
+                                             Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}"
+                                             CommandParameter="{Binding .}"
+                                             Scale="1.2" BackgroundColor="White"
+                                             />
+                            
                             </FlexLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+            
             </ListView>
+            <Label Text="Test" FontSize="Large"/>
 
-        </xct:Expander>
+
+            <xct:Expander >
+                <xct:Expander.Header>
+                    <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
+                </xct:Expander.Header>
+                <ListView ItemsSource="{Binding CompletedTodoItems}" x:Name="completedTodoList" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <FlexLayout >
+
+                                    <Label x:Name="completedTodoItem" Text="{Binding TodoText}" FontSize="Large"
+                                       />
+
+
+                                </FlexLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </xct:Expander>
 
         
-    </StackLayout>
+        </StackLayout>
+        <Frame x:Name="bottomSheet" HasShadow="true" CornerRadius="8" Padding="1,4,1,0" BackgroundColor="DarkSlateGray" 
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=.85,Constant=0}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression
+                Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"
+               >
+            <StackLayout x:Name="bottomSheetStackLayout">
+                <Entry Placeholder="Add a new todo" Text="{Binding NewTodoInputValue}"
+                   ReturnCommand="{Binding AddTodoCommand}"/>
+            </StackLayout>
+            
+        </Frame>
+
+    </RelativeLayout>
 
 </ContentPage>
