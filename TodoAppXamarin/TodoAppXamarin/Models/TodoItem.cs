@@ -1,4 +1,6 @@
-﻿namespace TodoAppXamarin.Models
+﻿using System;
+
+namespace TodoAppXamarin.Models
 {
     public class TodoItem
     {
@@ -9,6 +11,8 @@
 
         public bool IsImportant { get; set; }
 
+        public DateTime? dueByDateTime { get; set; }
+
 
         public TodoItem(string todoText, bool complete)
         {
@@ -16,9 +20,14 @@
             this.Complete = complete;
         }
 
-        public TodoItem(string todoText, bool complete, bool isImportant) : this(todoText, complete)
+        public TodoItem(string todoText, bool complete=false, bool isImportant=false) : this(todoText, complete)
         {
             IsImportant = isImportant;
+        }
+
+        public TodoItem(string todoText, DateTime? dueByDateTime, bool complete = false, bool isImportant = false) : this(todoText, complete, isImportant)
+        {
+            this.dueByDateTime = dueByDateTime;
         }
     }
 }

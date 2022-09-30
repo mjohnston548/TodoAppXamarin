@@ -28,6 +28,7 @@
                                                         />
                                     
                                         <Label Text="{Binding TodoText}" Padding="10,0,0,0" FontSize="Large"/>
+                                        <Label Text="{Binding IsImportant}" FontSize="Small"/>
                                     </FlexLayout>
                                 </ContentView>
                             
@@ -78,7 +79,14 @@
                >
             <StackLayout x:Name="bottomSheetStackLayout">
                 <Entry Placeholder="Add a new todo" Text="{Binding NewTodoInputValue}"
-                   ReturnCommand="{Binding AddTodoCommand}"/>
+                   ReturnCommand="{Binding AddTodoCommand}"
+                       />
+                <StackLayout Orientation="Horizontal">
+                    <input:CheckBox x:Name="isImportantCheckBox" 
+                                IsChecked="{Binding Path=BindingContext.NewTodoImportantValue, Source={x:Reference isImportantCheckBox}}"
+                                />
+                    <DatePicker x:Name="todoDatePicker" Date="{Binding Path=BindingContext.NewTodoDueByDateTime, Source={x:Reference todoDatePicker}}"></DatePicker>
+                </StackLayout>
             </StackLayout>
             
         </Frame>

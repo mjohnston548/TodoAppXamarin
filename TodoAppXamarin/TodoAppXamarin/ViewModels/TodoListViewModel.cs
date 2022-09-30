@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Plugin.InputKit.Shared.Controls;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using TodoAppXamarin.Models;
 using Xamarin.Forms;
+
 
 namespace TodoAppXamarin.ViewModels
 {
@@ -22,6 +24,7 @@ namespace TodoAppXamarin.ViewModels
             TodoListItems.Add(new TodoItem("Walk the duggo", false));
             TodoListItems.Add(new TodoItem("Do the washing", false));
             TodoListItems.Add(new TodoItem("Brush off Cheeto dust", false));
+            TodoListItems.Add(new TodoItem("Play basketball", false, true));
 
 
             CompletedTodoItems = new ObservableCollection<TodoItem>();
@@ -31,11 +34,14 @@ namespace TodoAppXamarin.ViewModels
         public ICommand AddTodoCommand => new Command(AddTodoItem);
         public string NewTodoInputValue { get; set; }
 
+        public bool NewTodoImportantValue { get; set; }
 
+        public DateTime? NewTodoDueByDateTime { get; set; }
 
         void AddTodoItem()
         {
-            TodoListItems.Add(new TodoItem(NewTodoInputValue, false));
+            TodoListItems.Add(new TodoItem(NewTodoInputValue, NewTodoDueByDateTime, isImportant: NewTodoImportantValue));
+            
         }
 
         public ICommand RemoveTodoCommand => new Command(RemoveTodoItem);
