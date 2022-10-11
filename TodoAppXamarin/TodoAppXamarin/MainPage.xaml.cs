@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using TodoAppXamarin.Models;
 using TodoAppXamarin.ViewModels;
-using Xamarin.CommunityToolkit.Markup;
 using Xamarin.Forms;
 
 namespace TodoAppXamarin
@@ -16,13 +11,13 @@ namespace TodoAppXamarin
         {
             InitializeComponent();
             this.ViewModel = new TodoListViewModel();
-            
+
         }
 
-        
+        private void testButton_Clicked(object sender, EventArgs e)
+        {
+            ListView listView = new ListView();
 
-        
-
-        
+        }
     }
 }

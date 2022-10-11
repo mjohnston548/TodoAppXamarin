@@ -11,7 +11,7 @@ namespace TodoAppXamarin.Models
 
         public bool IsImportant { get; set; }
 
-        public DateTime? dueByDateTime { get; set; }
+        public DateTime? DueByDateTime { get; set; }
 
 
         public TodoItem(string todoText, bool complete)
@@ -20,14 +20,18 @@ namespace TodoAppXamarin.Models
             this.Complete = complete;
         }
 
-        public TodoItem(string todoText, bool complete=false, bool isImportant=false) : this(todoText, complete)
+        public TodoItem(string todoText, bool complete = false, bool isImportant = false) : this(todoText, complete)
         {
             IsImportant = isImportant;
         }
 
         public TodoItem(string todoText, DateTime? dueByDateTime, bool complete = false, bool isImportant = false) : this(todoText, complete, isImportant)
         {
-            this.dueByDateTime = dueByDateTime;
+            this.DueByDateTime = dueByDateTime;
+        }
+
+        public TodoItem()
+        {
         }
     }
 }
