@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TodoAppXamarin.Models;
-using Xamarin.CommunityToolkit.ObjectModel;
 
 
 
@@ -14,7 +13,7 @@ namespace TodoAppXamarin.ViewModels
 {
     public class TodoListViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<TodoItem> TodoListItems { get; set; }
+
 
         public ObservableCollection<TodoItemGroup> GroupedTodolists { get; set; }
 
@@ -29,12 +28,12 @@ namespace TodoAppXamarin.ViewModels
         {
 
             GroupedTodolists = new ObservableCollection<TodoItemGroup>();
-            TodoListItems = new ObservableRangeCollection<TodoItem>();
+
 
             GroupedTodolists.Add(new TodoItemGroup(DateTime.Today, new ObservableCollection<TodoItem>()
             {
-                new TodoItem("Walk the duggo", dueByDateTime: new DateTime(2022, 12, 3), false ),
-                new TodoItem("Do the washing",dueByDateTime: new DateTime(2022, 11, 3), false),
+                new TodoItem("Walk the duggo", isImportant: false),
+                new TodoItem("Do the washing", isImportant: false),
 
             }));
 
@@ -43,9 +42,7 @@ namespace TodoAppXamarin.ViewModels
                 new TodoItem("Brush off Cheeto dust",dueByDateTime: new DateTime(2022,10,3), false)
             }));
 
-            //TodoListItems.Add(new TodoItem("Walk the duggo", dueByDateTime: new DateTime(2022, 12, 3), false));
-            //TodoListItems.Add(new TodoItem("Do the washing",dueByDateTime: new DateTime(2022, 11, 3), false));
-            //TodoListItems.Add(new TodoItem("Brush off Cheeto dust",dueByDateTime: new DateTime(2022,10,3), false));
+
 
 
 
@@ -66,7 +63,7 @@ namespace TodoAppXamarin.ViewModels
             set
             {
                 newTodoDueByDateTime = value;
-                //OnPropertyChanged();  /should read about WHEN this is neccasary
+
             }
         }
 
@@ -77,15 +74,13 @@ namespace TodoAppXamarin.ViewModels
             bool foundMatchingGroupName = false;
             for (int i = 0; i < GroupedTodolists.Count; i++)
             {
-                Console.WriteLine(GroupedTodolists[i].DueDateGroupName);
-
                 if (DateTime.Equals(GroupedTodolists[i].DueDateGroupName, NewTodoDueByDateTime))
                 {
                     GroupedTodolists[i].Add(new TodoItem(NewTodoInputValue, NewTodoDueByDateTime, isImportant: NewTodoImportantValue));
                     foundMatchingGroupName = true;
                     break;
                 }
-                Console.WriteLine(DateTime.Equals(GroupedTodolists[i].DueDateGroupName, NewTodoDueByDateTime));
+
             }
 
 
@@ -107,8 +102,18 @@ namespace TodoAppXamarin.ViewModels
 
         void RemoveTodoItem(object o)
         {
-            TodoItem todoItemBeingRemoved = o as TodoItem;
-            TodoListItems.Remove(todoItemBeingRemoved);
+            TodoItem todoItemBeingRemoved = (TodoItem)o;
+
+            foreach (TodoItemGroup todoGroup in GroupedTodolists)
+            {
+                todoGroup.Remove(todoItemBeingRemoved);
+                //if (todoGroup.Count==0)
+                //{
+                //    GroupedTodolists.Remove(todoGroup);  //throws exception
+                //}
+            }
+            //Header is left behind after deleting all items in a group
+
         }
 
         public ICommand CompleteTodoCommand => new Command(CompleteTodoItem);
@@ -118,7 +123,11 @@ namespace TodoAppXamarin.ViewModels
             TodoItem completedTodoItem = (TodoItem)o;
 
             Console.WriteLine(completedTodoItem.TodoText);
-            TodoListItems.Remove(completedTodoItem);
+            //TodoListItems.Remove(completedTodoItem);
+            foreach (TodoItemGroup todoGroup in GroupedTodolists)
+            {
+                todoGroup.Remove(completedTodoItem);
+            }
 
             CompletedTodoItems.Add(completedTodoItem as TodoItem);
 

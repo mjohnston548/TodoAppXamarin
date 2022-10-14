@@ -7,11 +7,13 @@ namespace TodoAppXamarin.Models
     {
 
 
-        public DateTime? DueDateGroupName { get; set; }
+        public DateTime? DueDateGroupName { get; set; } =new DateTime(1066,1,1);
 
         public TodoItemGroup(DateTime? dueDateGroupName, ObservableCollection<TodoItem> todoItems) : base(todoItems)
         {
             this.DueDateGroupName = dueDateGroupName;
         }
+
+        
     }
 }

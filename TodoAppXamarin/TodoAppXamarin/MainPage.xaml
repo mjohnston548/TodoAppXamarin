@@ -31,16 +31,27 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1*"/>
+                                
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <input:CheckBox x:Name="todoItemCheckBox" 
                                             Grid.Column="0" CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
                                             CommandParameter="{Binding}"/>
-                            <Label Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"/>
-                            <Label Grid.Column="2" FontSize="Small" Text="{Binding Path=BindingContext.NewTodoDueByDateTime, StringFormat='{0:MMMM dd, yyyy}'}"/>
+                            <Label x:Name="todoLabelText" Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"/>
+                            
+                            
+                            <Image Grid.Column="2" Source="trash_icon.png" HorizontalOptions="EndAndExpand" Scale="0.6" HeightRequest="50">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}" 
+                                                          CommandParameter="{Binding .}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            
                             <!--ImageButton is weird things to the grid.-->
-                            <ImageButton Grid.Column="3" Source="trash_icon.png" Scale="0.5" HeightRequest="10" BackgroundColor="White" />
+                            <!--<ImageButton Grid.Column="2" Source="trash_icon.png" Scale="0.5" HeightRequest="10" BackgroundColor="White" 
+                                         BindingContext="TodoListViewModel"
+                                         Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}"
+                                         CommandParameter="{Binding .}" />-->
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
