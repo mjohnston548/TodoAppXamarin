@@ -3,50 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TodoAppXamarin.ViewModels"
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit" 
-             
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="TodoAppXamarin.MainPage">
+             x:Class="TodoAppXamarin.MainPage"
+             Title="Todo Tasks">
 
     <ContentPage.BindingContext>
         <local:TodoListViewModel/>
     </ContentPage.BindingContext>
     <RelativeLayout>
+
+        
         <StackLayout Orientation="Vertical">
             <!--<Entry Placeholder="Enter a todo" x:Name="inputTodoEntryField"
                    Text="{Binding NewTodoInputValue}"
                    ReturnCommand="{Binding AddTodoCommand}"/>-->
-            <ListView ItemsSource="{Binding TodoListItems}" x:Name="todoList" HeightRequest="400">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding GroupedTodolists}"
+                            IsGrouped="True" x:Name="todoList">
+                <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <FlexLayout JustifyContent="SpaceBetween" Padding="20,0">
-                                <ContentView>
-                                    <FlexLayout AlignItems="Center" >
-                                        <input:CheckBox IsChecked="{Binding Complete}" 
-                                                        CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
-                                                        CommandParameter="{Binding .}"
-                                                        />
-                                    
-                                        <Label Text="{Binding TodoText}" Padding="10,0,0,0" FontSize="Large"/>
-                                        <Label Text="{Binding IsImportant}" FontSize="Small"/>
-                                    </FlexLayout>
-                                </ContentView>
-                            
-                                <ImageButton Source="trash_icon.png" 
-                                             Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}"
-                                             CommandParameter="{Binding .}"
-                                             Scale="1.2" BackgroundColor="White"
-                                             />
-                            
-                            </FlexLayout>
-                        </ViewCell>
+                        <Label Text="{Binding DueDateGroupName, StringFormat='{0:MMMM dd, yyyy}'}" FontSize="Large" BackgroundColor="Gray" TextColor="White"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <input:CheckBox x:Name="todoItemCheckBox" 
+                                            Grid.Column="0" CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
+                                            CommandParameter="{Binding}"/>
+                            <Label x:Name="todoLabelText" Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"/>
+                            
+                            
+                            <Image Grid.Column="2" Source="trash_icon.png" HorizontalOptions="EndAndExpand" Scale="0.6" HeightRequest="50">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}" 
+                                                          CommandParameter="{Binding .}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            
+                            <!--ImageButton is weird things to the grid.-->
+                            <!--<ImageButton Grid.Column="2" Source="trash_icon.png" Scale="0.5" HeightRequest="10" BackgroundColor="White" 
+                                         BindingContext="TodoListViewModel"
+                                         Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}"
+                                         CommandParameter="{Binding .}" />-->
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Todos left"/>
+                    <Label Text="{Binding TodoListItems.Count}" FontSize="Large"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Completed Todos"/>
+                    <Label Text="{Binding CompletedTodoItems.Count}" FontSize="Large"/>
+                </StackLayout>
+                    
+
+            </StackLayout>
             
-            </ListView>
-            <Label Text="Test" FontSize="Large"/>
-
-
             <xct:Expander >
                 <xct:Expander.Header>
                     <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
@@ -68,9 +90,11 @@
                 </ListView>
 
             </xct:Expander>
-
+            
         
         </StackLayout>
+        
+
         <Frame x:Name="bottomSheet" HasShadow="true" CornerRadius="8" Padding="1,4,1,0" BackgroundColor="DarkSlateGray" 
         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=.85,Constant=0}"
         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
@@ -82,15 +106,18 @@
                    ReturnCommand="{Binding AddTodoCommand}"
                        />
                 <StackLayout Orientation="Horizontal">
-                    <input:CheckBox x:Name="isImportantCheckBox" 
+                    <input:CheckBox x:Name="isImportantCheckBox" Text="Important?"
                                 IsChecked="{Binding Path=BindingContext.NewTodoImportantValue, Source={x:Reference isImportantCheckBox}}"
                                 />
-                    <DatePicker x:Name="todoDatePicker" Date="{Binding Path=BindingContext.NewTodoDueByDateTime, Source={x:Reference todoDatePicker}}"></DatePicker>
+                    <DatePicker x:Name="todoDatePicker" Format="dd/MM/yyyy"  Date="{Binding Path=BindingContext.NewTodoDueByDateTime, Source={x:Reference todoDatePicker}, FallbackValue={x:Static system:DateTime.Today}}"
+                                 />
+                    <Button  Text="Save" Command="{Binding AddTodoCommand}"/>
+                    <Button x:Name="testButton" Text="test" Clicked="testButton_Clicked"/>
                 </StackLayout>
             </StackLayout>
             
         </Frame>
-
+        
     </RelativeLayout>
 
 </ContentPage>
