@@ -68,8 +68,10 @@
                     
 
             </StackLayout>
-            
-            <xct:Expander >
+
+            <Button Text="Completed Todos" />
+
+            <!--<xct:Expander >
                 <xct:Expander.Header>
                     <Label Text="Completed to-dos" FontSize="Large" Padding="20"/>
                 </xct:Expander.Header>
@@ -89,7 +91,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-            </xct:Expander>
+            </xct:Expander>-->
             
         
         </StackLayout>
