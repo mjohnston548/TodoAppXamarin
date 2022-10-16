@@ -6,18 +6,14 @@ namespace TodoAppXamarin
 {
     public partial class MainPage : ContentPage
     {
-        TodoListViewModel ViewModel { get; set; }
+        public TodoListViewModel ViewModel { get; set; }
         public MainPage()
         {
             InitializeComponent();
-            this.ViewModel = new TodoListViewModel();
+            this.BindingContext = App.sharedTodoListViewModel;
 
         }
 
-        private void testButton_Clicked(object sender, EventArgs e)
-        {
-            ListView listView = new ListView();
-
-        }
+        
     }
 }

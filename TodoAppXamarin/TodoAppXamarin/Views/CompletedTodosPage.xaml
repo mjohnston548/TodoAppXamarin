@@ -1,12 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:TodoAppXamarin.ViewModels"
              x:Class="TodoAppXamarin.Views.CompletedTodosPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <ContentPage.BindingContext>
+        <local:TodoListViewModel/> <!--not a reference to the shared view model, but works-->
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Todo Tasks Completed:"/>
+            <Label Text="{Binding CompletedTodoItems.Count}"/>
         </StackLayout>
-    </ContentPage.Content>
+        <CollectionView ItemsSource="{Binding CompletedTodoItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding TodoText}" FontSize="Large" HorizontalTextAlignment="Center" 
+                                Padding="10" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+        <StackLayout>
+            
+            
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

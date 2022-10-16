@@ -124,13 +124,25 @@ namespace TodoAppXamarin.ViewModels
 
             Console.WriteLine(completedTodoItem.TodoText);
             //TodoListItems.Remove(completedTodoItem);
+            bool todoGroupEmpty=false;
+            int emptyTodoGroupIndex=0;
             foreach (TodoItemGroup todoGroup in GroupedTodolists)
             {
                 todoGroup.Remove(completedTodoItem);
+                if (todoGroup.Count==0)
+                {
+                    todoGroupEmpty = true;
+                    emptyTodoGroupIndex=GroupedTodolists.IndexOf(todoGroup);
+                }
             }
 
-            CompletedTodoItems.Add(completedTodoItem as TodoItem);
+            if (todoGroupEmpty==true)
+            {
+                GroupedTodolists.RemoveAt(emptyTodoGroupIndex);
+            }
 
+            CompletedTodoItems.Add(completedTodoItem);
+            Console.WriteLine(CompletedTodoItems.Count);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

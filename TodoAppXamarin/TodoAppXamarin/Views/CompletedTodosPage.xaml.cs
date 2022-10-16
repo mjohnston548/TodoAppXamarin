@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TodoAppXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +15,8 @@ namespace TodoAppXamarin.Views
         public CompletedTodosPage()
         {
             InitializeComponent();
+            this.BindingContext = App.sharedTodoListViewModel;
+            
         }
     }
 }

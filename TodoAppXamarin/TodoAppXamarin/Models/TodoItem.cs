@@ -7,13 +7,13 @@ namespace TodoAppXamarin.Models
         public TodoItem(string todoText, bool complete=false, bool isImportant=false) :base()
         {
             TodoText = todoText;
-            Complete = complete;
+            IsComplete = complete;
             IsImportant = isImportant;
         }
 
 
         public string TodoText { get; set; }
-        public bool Complete { get; set; }
+        public bool IsComplete { get; set; }
 
         public bool IsImportant { get; set; }
 
@@ -25,7 +25,7 @@ namespace TodoAppXamarin.Models
         public TodoItem(string todoText, bool complete)
         {
             this.TodoText = todoText;
-            this.Complete = complete;
+            this.IsComplete = complete;
         }
 
         

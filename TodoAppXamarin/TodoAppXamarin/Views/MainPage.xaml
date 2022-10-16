@@ -34,7 +34,7 @@
                                 
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <input:CheckBox x:Name="todoItemCheckBox" 
+                            <input:CheckBox x:Name="todoItemCheckBox" IsChecked="{Binding IsComplete}"
                                             Grid.Column="0" CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
                                             CommandParameter="{Binding}"/>
                             <Label x:Name="todoLabelText" Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"/>
@@ -114,7 +114,7 @@
                     <DatePicker x:Name="todoDatePicker" Format="dd/MM/yyyy"  Date="{Binding Path=BindingContext.NewTodoDueByDateTime, Source={x:Reference todoDatePicker}, FallbackValue={x:Static system:DateTime.Today}}"
                                  />
                     <Button  Text="Save" Command="{Binding AddTodoCommand}"/>
-                    <Button x:Name="testButton" Text="test" Clicked="testButton_Clicked"/>
+                    <Button x:Name="testButton" Text="test" />
                 </StackLayout>
             </StackLayout>
             

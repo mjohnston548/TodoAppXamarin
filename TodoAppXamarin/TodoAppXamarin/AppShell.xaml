@@ -1,16 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:View="clr-namespace:TodoAppXamarin" xmlns:View1="clr-namespace:TodoAppXamarin.Views"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:View="clr-namespace:TodoAppXamarin" 
+       xmlns:local="clr-namespace:TodoAppXamarin.Views" 
+       xmlns:local1="clr-namespace:TodoAppXamarin.ViewModels"
        x:Class="TodoAppXamarin.AppShell">
+    <Shell.BindingContext>
+        <local1:TodoListViewModel/>
+    </Shell.BindingContext>
     <TabBar >
         
         <Tab Title="Todo Tasks"
              >
-            <ShellContent Title="Todo" >
-                <View:MainPage  BackgroundColor="White"/>
+            <ShellContent Title="Todo" ContentTemplate="{DataTemplate View:MainPage}" Route="MainPage" >
+                <!--<View:MainPage  BackgroundColor="White"/>-->
             </ShellContent>
-            <ShellContent Title="Completed">
-                <View1:CompletedTodosPage Title="Completed"/>
+            <ShellContent Title="Completed" ContentTemplate="{DataTemplate local:CompletedTodosPage}" Route="CompletedTodosPage">
+                <!--<View1:CompletedTodosPage Title="Completed"/>-->
             </ShellContent>
             
         </Tab>
