@@ -1,13 +1,12 @@
-﻿
-using MvvmHelpers.Commands;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TodoAppXamarin.Models;
-
-
+using TodoAppXamarin.Views;
+using Xamarin.Forms;
+using Command = Xamarin.Forms.Command;
 
 namespace TodoAppXamarin.ViewModels
 {
@@ -143,6 +142,15 @@ namespace TodoAppXamarin.ViewModels
 
             CompletedTodoItems.Add(completedTodoItem);
             Console.WriteLine(CompletedTodoItems.Count);
+        }
+
+        public ICommand GoToTaskDetailsCommand => new Command(GoToTaskDetails);
+
+        async void GoToTaskDetails(object sender)
+        {
+            string route = $"{nameof(TodoDetailsPage)}";
+            string specificTodoItemText = (sender as TodoItem).TodoText;
+            await Shell.Current.GoToAsync(route);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

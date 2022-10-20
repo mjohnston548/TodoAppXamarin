@@ -6,7 +6,8 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="TodoAppXamarin.MainPage"
-             Title="Todo Tasks">
+             Title="Todo Tasks"
+             x:Name="Root">
 
     <ContentPage.BindingContext>
         <local:TodoListViewModel/>
@@ -37,9 +38,12 @@
                             <input:CheckBox x:Name="todoItemCheckBox" IsChecked="{Binding IsComplete}"
                                             Grid.Column="0" CheckChangedCommand="{Binding Path=BindingContext.CompleteTodoCommand, Source={x:Reference todoList}}"
                                             CommandParameter="{Binding}"/>
-                            <Label x:Name="todoLabelText" Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"/>
-                            
-                            
+                            <!--<Label x:Name="todoLabelText" Grid.Column="1" FontSize="Large" Text="{Binding TodoText}" VerticalTextAlignment="Center"
+                                   />-->
+                            <Button Grid.Column="1" Text="{Binding TodoText}" x:Name="todoTextButton" VerticalOptions="Center" BackgroundColor="White"
+                                    Command="{Binding Path=BindingContext.GoToTaskDetailsCommand, Source={x:Reference todoList}}"
+                                    CommandParameter="{Binding .}"/>
+
                             <Image Grid.Column="2" Source="trash_icon.png" HorizontalOptions="EndAndExpand" Scale="0.6" HeightRequest="50">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveTodoCommand, Source={x:Reference todoList}}" 

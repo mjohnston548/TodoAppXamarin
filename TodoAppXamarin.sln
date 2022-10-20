@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAppXamarin.Android", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAppXamarin.iOS", "TodoAppXamarin\TodoAppXamarin.iOS\TodoAppXamarin.iOS.csproj", "{2FC9991D-2B69-487C-8380-A75247475B7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAppXamarin", "TodoAppXamarin\TodoAppXamarin\TodoAppXamarin.csproj", "{8B65CF51-6DD1-4A74-9417-B1BE40080155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoAppXamarin", "TodoAppXamarin\TodoAppXamarin\TodoAppXamarin.csproj", "{8B65CF51-6DD1-4A74-9417-B1BE40080155}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

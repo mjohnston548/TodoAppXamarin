@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoAppXamarin.Views;
+using TodoAppXamarin.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TodoAppXamarin
+namespace TodoAppXamarin.Views
 {
     
-    public partial class AppShell : Shell
+    public partial class TodoDetailsPage : ContentPage
     {
-        public AppShell()
+        
+
+        
+        public TodoDetailsPage()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(TodoDetailsPage), typeof(TodoDetailsPage));
         }
+
+        
     }
 }
