@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -148,8 +149,11 @@ namespace TodoAppXamarin.ViewModels
 
         async void GoToTaskDetails(object sender)
         {
-            string route = $"{nameof(TodoDetailsPage)}";
-            string specificTodoItemText = (sender as TodoItem).TodoText;
+            
+            TodoItem specificTodoItem = sender as TodoItem;
+            var jsonSpecificTodoString=JsonConvert.SerializeObject(specificTodoItem);
+
+            string route = $"{nameof(TodoDetailsPage)}?Content={jsonSpecificTodoString}";
             await Shell.Current.GoToAsync(route);
         }
 
